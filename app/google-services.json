@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "974763418498",
+    "project_id": "the-big-champion",
+    "storage_bucket": "the-big-champion.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:974763418498:android:3e92acecd716d941cea59b",
+        "android_client_info": {
+          "package_name": "com.dicedev.thebigchampion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "974763418498-do12ti0bn368df41tbo5v2j5av0k4lf4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgD3VrOd6yZNCUhBHURPDpjGiFLgEyR8Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "974763418498-do12ti0bn368df41tbo5v2j5av0k4lf4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

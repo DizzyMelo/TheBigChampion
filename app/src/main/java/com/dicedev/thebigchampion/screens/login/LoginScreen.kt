@@ -60,7 +60,7 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = L
                     }
                 )
             }
-
+            Spacer(modifier = Modifier.height(20.dp))
             Text(text = "Create an account", modifier = Modifier.clickable {
                 navController.navigate(AppScreens.SignupScreen.name)
             })

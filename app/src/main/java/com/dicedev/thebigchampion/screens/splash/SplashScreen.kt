@@ -22,12 +22,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.dicedev.thebigchampion.R
+import com.dicedev.thebigchampion.utils.Utils
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(
-    navController: NavController,
-    splashViewModel: SplashViewModel = SplashViewModel()
+    navController: NavController
 ) {
     val scale = remember {
         Animatable(initialValue = .6f)
@@ -43,7 +44,8 @@ fun SplashScreen(
                 }
             )
         )
-        splashViewModel.selectNavigationRoute(FirebaseAuth.getInstance(), navController)
+        delay(2000L)
+        navController.navigate(Utils.getNavigationRoute(FirebaseAuth.getInstance()))
     })
 
 

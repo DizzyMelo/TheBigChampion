@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.dicedev.thebigchampion.components.AppLogo
 import com.dicedev.thebigchampion.components.EmailTextField
+import com.dicedev.thebigchampion.components.MainButton
 import com.dicedev.thebigchampion.components.PasswordTextField
 
 @Composable
@@ -36,6 +37,7 @@ fun LoginScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(20.dp))
             EmailTextField(emailState = emailState)
             PasswordTextField(passwordState = passwordState)
+            MainButton(label = "Login")
 
         }
     }

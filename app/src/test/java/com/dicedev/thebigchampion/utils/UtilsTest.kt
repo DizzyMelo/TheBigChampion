@@ -3,8 +3,6 @@ package com.dicedev.thebigchampion.utils
 import com.dicedev.thebigchampion.navigation.AppScreens
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertNotSame
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.kotlin.doReturn
@@ -25,7 +23,7 @@ internal class UtilsTest {
         }
 
         val result = Utils.getNavigationRoute(mockFirebaseAuth)
-        assertEquals(result, LOGIN_SCREEN_NAME)
+        assert(result == LOGIN_SCREEN_NAME)
     }
 
     @Test
@@ -35,7 +33,9 @@ internal class UtilsTest {
         }
 
         val result = Utils.getNavigationRoute(mockFirebaseAuth)
-        assertNotSame(result, HOME_SCREEN_NAME)
+        assert(
+            result != HOME_SCREEN_NAME,
+            lazyMessage = { "Screen should be $LOGIN_SCREEN_NAME but found $HOME_SCREEN_NAME" })
     }
 
     @Test
@@ -46,7 +46,7 @@ internal class UtilsTest {
         }
 
         val result = Utils.getNavigationRoute(mockFirebaseAuth)
-        assertEquals(result, HOME_SCREEN_NAME)
+        assert(result == HOME_SCREEN_NAME)
     }
 
 
@@ -58,6 +58,6 @@ internal class UtilsTest {
         }
 
         val result = Utils.getNavigationRoute(mockFirebaseAuth)
-        assertNotSame(result, LOGIN_SCREEN_NAME)
+        assert(result != LOGIN_SCREEN_NAME)
     }
 }

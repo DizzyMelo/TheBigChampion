@@ -1,7 +1,9 @@
 package com.dicedev.thebigchampion.screens.login
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -52,11 +54,16 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = L
                     emailState.value,
                     passwordState.value,
                     callback = {
-                        navController.navigate(AppScreens.HomeScreen.name)
+                        navController.navigate(AppScreens.HomeScreen.name) {
+                            popUpTo(AppScreens.HomeScreen.name) { inclusive = true }
+                        }
                     }
                 )
             }
 
+            Text(text = "Create an account", modifier = Modifier.clickable {
+                navController.navigate(AppScreens.SignupScreen.name)
+            })
         }
     }
 }

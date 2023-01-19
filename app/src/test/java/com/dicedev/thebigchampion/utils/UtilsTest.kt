@@ -18,7 +18,8 @@ internal class UtilsTest {
     @Mock
     private lateinit var mockFirebaseUser: FirebaseUser
 
-    @Test fun getNavigationRoute_NoUserLoggedIn() {
+    @Test
+    fun getNavigationRoute_NoUserLoggedIn() {
         val mockFirebaseAuth = mock<FirebaseAuth> {
             on { currentUser } doReturn null
         }
@@ -27,7 +28,8 @@ internal class UtilsTest {
         assertEquals(result, LOGIN_SCREEN_NAME)
     }
 
-    @Test fun getNavigationRoute_NoUserLoggedIn_Fail() {
+    @Test
+    fun getNavigationRoute_NoUserLoggedIn_Fail() {
         val mockFirebaseAuth = mock<FirebaseAuth> {
             on { currentUser } doReturn null
         }
@@ -36,7 +38,8 @@ internal class UtilsTest {
         assertNotSame(result, HOME_SCREEN_NAME)
     }
 
-    @Test fun getNavigationRoute_UserLoggedIn() {
+    @Test
+    fun getNavigationRoute_UserLoggedIn() {
         mockFirebaseUser = mock()
         val mockFirebaseAuth = mock<FirebaseAuth> {
             on { currentUser } doReturn mockFirebaseUser

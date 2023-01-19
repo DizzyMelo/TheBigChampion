@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.dicedev.thebigchampion.screens.home.HomeScreen
 import com.dicedev.thebigchampion.screens.login.LoginScreen
+import com.dicedev.thebigchampion.screens.signup.SignupScreen
 import com.dicedev.thebigchampion.screens.splash.SplashScreen
 
 @Composable
@@ -25,6 +26,10 @@ fun AppNavigation() {
 
             composable(route = AppScreens.HomeScreen.name) {
                 HomeScreen(navController)
+            }
+
+            composable(route = AppScreens.SignupScreen.name) {
+                SignupScreen(navController)
             }
         })
 }

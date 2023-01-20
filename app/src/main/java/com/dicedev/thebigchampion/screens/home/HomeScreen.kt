@@ -9,7 +9,13 @@ import com.dicedev.thebigchampion.components.MainTopAppBar
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(navController: NavController) {
-    Scaffold(topBar = { MainTopAppBar(title = "Home", navController = navController) }) {
+    Scaffold(topBar = {
+        MainTopAppBar(
+            title = "Home",
+            navController = navController,
+            navigationIcon = null
+        )
+    }) {
 
     }
 }

@@ -13,6 +13,7 @@ import androidx.navigation.NavController
 import com.dicedev.thebigchampion.components.*
 import com.dicedev.thebigchampion.data.stubs.GroupStubs
 import com.dicedev.thebigchampion.models.Group
+import com.dicedev.thebigchampion.navigation.AppScreens
 
 @Preview
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -29,12 +30,12 @@ fun HomeScreen(navController: NavController = NavController(LocalContext.current
 
         }
     }) {
-        HomeContent()
+        HomeContent(navController)
     }
 }
 
 @Composable
-fun HomeContent() {
+fun HomeContent(navController: NavController) {
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -42,19 +43,24 @@ fun HomeContent() {
     ) {
         Column {
             UserStats()
-            GroupsContent()
+            GroupsContent(navController = navController)
         }
     }
 }
 
 @Composable
-fun GroupsContent(groups: List<Group> = GroupStubs.getEmptyListOfGroups()) {
+fun GroupsContent(
+    groups: List<Group> = GroupStubs.getEmptyListOfGroups(),
+    navController: NavController
+) {
     Surface {
         Column {
             SectionTitle(text = "Groups")
             Column {
                 if (groups.isEmpty()) {
-                    MainButton(label = "Create your first group", onClick = {})
+                    MainButton(
+                        label = "Create your first group",
+                        onClick = { navController.navigate(AppScreens.CreateGroupScreen.name) })
                 }
                 groups.forEach { group ->
                     GroupRow(group)

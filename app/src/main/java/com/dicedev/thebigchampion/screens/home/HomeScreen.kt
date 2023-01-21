@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -49,13 +48,15 @@ fun HomeContent() {
 }
 
 @Composable
-fun GroupsContent(groups: List<Group> = GroupStubs.getPopulatedGroups()) {
+fun GroupsContent(groups: List<Group> = GroupStubs.getEmptyListOfGroups()) {
     Surface {
         Column {
             SectionTitle(text = "Groups")
             Column {
                 if (groups.isEmpty()) {
-                    Text(text = "No group")
+                    Row {
+                        MainButton(label = "Create your first group", onClick = {})
+                    }
                 }
                 groups.forEach { group ->
                     GroupRow(group)

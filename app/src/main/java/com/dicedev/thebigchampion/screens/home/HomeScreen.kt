@@ -54,9 +54,7 @@ fun GroupsContent(groups: List<Group> = GroupStubs.getEmptyListOfGroups()) {
             SectionTitle(text = "Groups")
             Column {
                 if (groups.isEmpty()) {
-                    Row {
-                        MainButton(label = "Create your first group", onClick = {})
-                    }
+                    MainButton(label = "Create your first group", onClick = {})
                 }
                 groups.forEach { group ->
                     GroupRow(group)

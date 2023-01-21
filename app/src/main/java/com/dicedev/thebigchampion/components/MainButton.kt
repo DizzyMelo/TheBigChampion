@@ -19,7 +19,7 @@ fun MainButton(
     label: String,
     isLoading: Boolean = false,
     enabled: Boolean = true,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit
 ) {
     if (isLoading) {
         return CircularProgressIndicator()

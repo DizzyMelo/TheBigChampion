@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.dicedev.thebigchampion.screens.group.AddPlayersToGroupScreen
 import com.dicedev.thebigchampion.screens.group.CreateGroupScreen
 import com.dicedev.thebigchampion.screens.home.HomeScreen
 import com.dicedev.thebigchampion.screens.login.LoginScreen
@@ -35,6 +36,10 @@ fun AppNavigation() {
 
             composable(route = AppScreens.CreateGroupScreen.name) {
                 CreateGroupScreen(navController)
+            }
+
+            composable(route = AppScreens.AddPlayersToGroupScreen.name) {
+                AddPlayersToGroupScreen(navController)
             }
         })
 }

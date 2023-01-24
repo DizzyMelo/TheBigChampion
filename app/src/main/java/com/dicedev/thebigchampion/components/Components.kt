@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -41,14 +42,14 @@ fun AppLogo(
 }
 
 @Composable
-fun FABIcon(onClick: () -> Unit) {
+fun FABIcon(icon: ImageVector = Icons.Default.Add, onClick: () -> Unit) {
     FloatingActionButton(
         onClick = { onClick.invoke() },
         shape = CircleShape,
         backgroundColor = AppColors.solidGreen,
         contentColor = Color.White
     ) {
-        Icon(imageVector = Icons.Default.Add, contentDescription = "Add icon")
+        Icon(imageVector = icon, contentDescription = "float action button icon")
     }
 }
 

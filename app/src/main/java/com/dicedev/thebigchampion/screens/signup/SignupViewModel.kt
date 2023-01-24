@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dicedev.thebigchampion.data.FirebaseDao
 import com.dicedev.thebigchampion.models.User
+import com.dicedev.thebigchampion.utils.CollectionNames
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -26,7 +27,10 @@ class SignupViewModel @Inject constructor(
                             email = email,
                             photo = "no-photo"
                         ).toMap()
-                        firebaseDao.addDocument(user).run {
+                        firebaseDao.addDocument(
+                            collectionName = CollectionNames.USERS,
+                            document = user
+                        ).run {
                             onSuccessCallback.invoke()
                         }
                     } else {

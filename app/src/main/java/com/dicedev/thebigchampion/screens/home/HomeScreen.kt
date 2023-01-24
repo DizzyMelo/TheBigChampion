@@ -5,20 +5,17 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.dicedev.thebigchampion.components.*
-import com.dicedev.thebigchampion.data.stubs.GroupStubs
-import com.dicedev.thebigchampion.models.Group
 import com.dicedev.thebigchampion.navigation.AppScreens
 
-@Preview
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun HomeScreen(navController: NavController = NavController(LocalContext.current)) {
+fun HomeScreen(navController: NavController, homeViewModel: HomeViewModel = hiltViewModel()) {
     Scaffold(topBar = {
         MainTopAppBar(
             title = "Home",
@@ -30,12 +27,12 @@ fun HomeScreen(navController: NavController = NavController(LocalContext.current
 
         }
     }) {
-        HomeContent(navController)
+        HomeContent(navController, homeViewModel)
     }
 }
 
 @Composable
-fun HomeContent(navController: NavController) {
+fun HomeContent(navController: NavController, homeViewModel: HomeViewModel) {
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -43,27 +40,27 @@ fun HomeContent(navController: NavController) {
     ) {
         Column {
             UserStats()
-            GroupsContent(navController = navController)
+            GroupsContent(homeViewModel = homeViewModel, navController = navController)
         }
     }
 }
 
 @Composable
 fun GroupsContent(
-    groups: List<Group> = GroupStubs.getEmptyListOfGroups(),
+    homeViewModel: HomeViewModel,
     navController: NavController
 ) {
     Surface {
         Column {
             SectionTitle(text = "Groups")
             Column {
-                if (groups.isEmpty()) {
+                if (homeViewModel.groups.collectAsState().value.isEmpty()) {
                     MainButton(
                         label = "Create your first group",
                         onClick = { navController.navigate(AppScreens.CreateGroupScreen.name) })
                 }
-                groups.forEach { group ->
-                    GroupRow(group)
+                homeViewModel.groups.collectAsState().value.forEach {
+                    GroupRow(group = it)
                 }
             }
         }

@@ -2,20 +2,23 @@ package com.dicedev.thebigchampion.screens.home
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.dicedev.thebigchampion.components.*
+import com.dicedev.thebigchampion.data.ScreenState
+import com.dicedev.thebigchampion.models.Group
 import com.dicedev.thebigchampion.navigation.AppScreens
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(navController: NavController, homeViewModel: HomeViewModel = hiltViewModel()) {
+    val screenState = homeViewModel.screenState.value
     Scaffold(topBar = {
         MainTopAppBar(
             title = "Home",
@@ -24,15 +27,15 @@ fun HomeScreen(navController: NavController, homeViewModel: HomeViewModel = hilt
         )
     }, floatingActionButton = {
         FABIcon {
-
+            navController.navigate(route = AppScreens.CreateGroupScreen.name)
         }
     }) {
-        HomeContent(navController, homeViewModel)
+        HomeContent(screenState, navController)
     }
 }
 
 @Composable
-fun HomeContent(navController: NavController, homeViewModel: HomeViewModel) {
+fun HomeContent(screenState: ScreenState<List<Group>>, navController: NavController) {
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -40,27 +43,36 @@ fun HomeContent(navController: NavController, homeViewModel: HomeViewModel) {
     ) {
         Column {
             UserStats()
-            GroupsContent(homeViewModel = homeViewModel, navController = navController)
+            GroupsContent(
+                groups = screenState.groups,
+                navController = navController,
+                screenState.loading
+            )
         }
     }
 }
 
 @Composable
 fun GroupsContent(
-    homeViewModel: HomeViewModel,
-    navController: NavController
+    groups: List<Group>?,
+    navController: NavController,
+    loading: Boolean
 ) {
     Surface {
         Column {
             SectionTitle(text = "Groups")
             Column {
-                if (homeViewModel.groups.collectAsState().value.isEmpty()) {
+
+                if (loading) {
+                    CircularProgressIndicator()
+                } else if (groups == null || groups.isEmpty()) {
                     MainButton(
                         label = "Create your first group",
                         onClick = { navController.navigate(AppScreens.CreateGroupScreen.name) })
-                }
-                homeViewModel.groups.collectAsState().value.forEach {
-                    GroupRow(group = it)
+                } else {
+                    groups.forEach {
+                        GroupRow(group = it)
+                    }
                 }
             }
         }

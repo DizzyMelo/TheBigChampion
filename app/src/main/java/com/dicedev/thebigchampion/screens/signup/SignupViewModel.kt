@@ -19,26 +19,24 @@ class SignupViewModel @Inject constructor(
     fun signupWithEmailAndPassword(email: String, password: String, onSuccessCallback: () -> Unit) =
         viewModelScope.launch {
             firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val user = User(
-                            id = task.result.user?.uid,
-                            name = "test",
-                            email = email,
-                            photo = "no-photo"
-                        ).toMap()
-                        firebaseDao.addDocument(
-                            collectionName = CollectionNames.USERS,
-                            document = user
-                        ).run {
-                            onSuccessCallback.invoke()
-                        }
-                    } else {
-                        Log.d(
-                            "SIGN UP",
-                            "signupWithEmailAndPassword: something went wrong trying to create user"
-                        )
+                .addOnSuccessListener { task ->
+                    val user = User(
+                        userId = task.user?.uid,
+                        name = "test",
+                        email = email,
+                        photo = "no-photo"
+                    ).toMap()
+                    firebaseDao.addDocument(
+                        collectionName = CollectionNames.USERS,
+                        document = user
+                    ).run {
+                        onSuccessCallback.invoke()
                     }
+                }.addOnFailureListener {
+                    Log.d(
+                        "SIGN UP",
+                        "signupWithEmailAndPassword: something went wrong trying to create user ${it.message}"
+                    )
                 }
         }
 }

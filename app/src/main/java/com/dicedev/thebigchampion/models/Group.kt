@@ -4,7 +4,8 @@ data class Group(
     val id: String? = null,
     val name: String,
     val image: String? = null,
-    val members: List<String> = emptyList()
+    val players: List<String> = emptyList(),
+    val games: List<String> = emptyList(),
 ): HasToMap {
 
     override fun toMap(): HashMap<String, Any> {
@@ -12,7 +13,8 @@ data class Group(
             "id" to this.id.toString(),
             "name" to this.name,
             "image" to this.image.toString(),
-            "members" to members
+            "players" to players,
+            "games" to games,
         )
     }
 }

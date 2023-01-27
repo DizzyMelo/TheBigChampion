@@ -9,7 +9,6 @@ import com.dicedev.thebigchampion.data.ScreenState
 import com.dicedev.thebigchampion.models.Group
 import com.dicedev.thebigchampion.utils.CollectionNames
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -18,7 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val repository: FirebaseRepository) : ViewModel() {
 
-    val screenState: MutableState<ScreenState<List<Group>>> = mutableStateOf(ScreenState(loading = true))
+    val screenState: MutableState<ScreenState<List<Group>>> =
+        mutableStateOf(ScreenState(loading = true))
 
     init {
         viewModelScope.launch {
@@ -27,7 +27,6 @@ class HomeViewModel @Inject constructor(private val repository: FirebaseReposito
     }
 
     private suspend fun getGroups() {
-        delay(2000L)
         repository.getDocuments(collectionName = CollectionNames.GROUPS).map { querySnapshot ->
             querySnapshot.documents.map { Group(id = it.id, name = it.get("name") as String) }
         }.distinctUntilChanged().collect { listOfGroups ->

@@ -30,9 +30,7 @@ class HomeViewModel @Inject constructor(private val repository: FirebaseReposito
         repository.getDocuments(collectionName = CollectionNames.GROUPS).map { querySnapshot ->
             querySnapshot.documents.map { Group(id = it.id, name = it.get("name") as String) }
         }.distinctUntilChanged().collect { listOfGroups ->
-            if (listOfGroups.isNotEmpty()) {
-                screenState.value = ScreenState(loading = false, groups = listOfGroups)
-            }
+            screenState.value = ScreenState(loading = false, groups = listOfGroups)
         }
     }
 

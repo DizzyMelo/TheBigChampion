@@ -79,7 +79,12 @@ fun GroupsContent(
                         onClick = { navController.navigate(AppScreens.CreateGroupScreen.name) })
                 } else {
                     groups.forEach {
-                        GroupRow(group = it)
+                        val route =
+                            StringBuilder().append(AppScreens.GroupDetailsScreen.name).append("/")
+                                .append(it.id).toString()
+                        GroupRow(group = it) {
+                            navController.navigate(route)
+                        }
                     }
                 }
             }

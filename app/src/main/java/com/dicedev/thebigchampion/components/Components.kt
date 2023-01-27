@@ -2,14 +2,14 @@ package com.dicedev.thebigchampion.components
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -71,5 +71,33 @@ fun ScreenFrame(content: @Composable () -> Unit) {
             .padding(10.dp)
     ) {
         content()
+    }
+}
+
+@Composable
+fun HorizontalDisplayCard(components: List<@Composable () -> Unit> = emptyList()) {
+    Surface(
+        color = AppColors.lightGray.copy(alpha = .2f),
+        shape = RoundedCornerShape(15.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp),
+            horizontalArrangement = Arrangement.SpaceAround,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            components.forEach { component ->
+                component()
+            }
+        }
+    }
+}
+
+@Composable
+fun TitleValueBlock(title: String, value: String) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(text = title)
+        Text(text = value)
     }
 }

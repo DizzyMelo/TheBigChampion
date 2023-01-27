@@ -10,4 +10,6 @@ object Utils {
         }
         return AppScreens.HomeScreen.name
     }
+
+    fun getUserNameFromEmail(email: String): String = email.split("@").first()
 }

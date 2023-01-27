@@ -1,4 +1,4 @@
-package com.dicedev.thebigchampion
+package com.dicedev.thebigchampion.reposiroty
 
 import com.dicedev.thebigchampion.data.FirebaseDao
 import com.google.android.gms.tasks.Task

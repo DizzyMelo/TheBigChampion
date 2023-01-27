@@ -3,7 +3,7 @@ package com.dicedev.thebigchampion.screens.group
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dicedev.thebigchampion.FirebaseRepository
+import com.dicedev.thebigchampion.reposiroty.FirebaseRepository
 import com.dicedev.thebigchampion.models.Group
 import com.dicedev.thebigchampion.utils.CollectionNames
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +16,7 @@ class GroupViewModel @Inject constructor(private val repository: FirebaseReposit
         try {
             repository.insertDocument(
                 collectionName = CollectionNames.GROUPS,
-                document = Group(name = name).toMap()
+                document = Group(name = name, players = listOf("users/FwENAZQfShlUpHLs32UC")).toMap()
             ).addOnSuccessListener {
                 onSuccessAction.invoke()
             }.addOnFailureListener {

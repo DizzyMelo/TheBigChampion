@@ -4,7 +4,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dicedev.thebigchampion.FirebaseRepository
+import com.dicedev.thebigchampion.reposiroty.FirebaseRepository
 import com.dicedev.thebigchampion.data.ScreenState
 import com.dicedev.thebigchampion.models.Group
 import com.dicedev.thebigchampion.utils.CollectionNames

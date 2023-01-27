@@ -18,4 +18,8 @@ class FirebaseRepository @Inject constructor(private val dao: FirebaseDao) {
     fun getDocuments(collectionName: String): Flow<QuerySnapshot> {
         return dao.getDocumentsFromCollection(collectionName)
     }
+
+    fun getDocumentByFieldName(collectionName: String, fieldName: String, value: String): Task<QuerySnapshot> {
+        return dao.getDocumentByField(collectionName, fieldName, value)
+    }
 }

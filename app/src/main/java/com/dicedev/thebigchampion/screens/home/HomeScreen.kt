@@ -64,7 +64,15 @@ fun GroupsContent(
             Column {
 
                 if (loading) {
-                    CircularProgressIndicator()
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(28.dp),
+                            strokeWidth = 3.dp
+                        )
+                    }
                 } else if (groups == null || groups.isEmpty()) {
                     MainButton(
                         label = "Create your first group",

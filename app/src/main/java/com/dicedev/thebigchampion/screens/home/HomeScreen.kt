@@ -36,11 +36,7 @@ fun HomeScreen(navController: NavController, homeViewModel: HomeViewModel = hilt
 
 @Composable
 fun HomeContent(screenState: ScreenState<List<Group>>, navController: NavController) {
-    Surface(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(10.dp)
-    ) {
+    ScreenFrame {
         Column {
             UserStats()
             GroupsContent(

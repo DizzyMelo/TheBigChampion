@@ -2,13 +2,11 @@ package com.dicedev.thebigchampion.components
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
@@ -63,4 +61,15 @@ fun SectionTitle(text: String, modifier: Modifier = Modifier, color: Color = App
         color = color,
         modifier = modifier.padding(vertical = 10.dp)
     )
+}
+
+@Composable
+fun ScreenFrame(content: @Composable () -> Unit) {
+    Surface(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(10.dp)
+    ) {
+        content()
+    }
 }

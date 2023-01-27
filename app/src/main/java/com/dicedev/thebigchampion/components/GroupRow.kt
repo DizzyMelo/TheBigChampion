@@ -1,5 +1,6 @@
 package com.dicedev.thebigchampion.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -13,11 +14,12 @@ import com.dicedev.thebigchampion.models.Group
 import com.dicedev.thebigchampion.utils.AppColors
 
 @Composable
-fun GroupRow(group: Group) {
+fun GroupRow(group: Group, onClick: () -> Unit = {}) {
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 5.dp),
+            .padding(vertical = 5.dp)
+            .clickable { onClick.invoke() },
         shape = RoundedCornerShape(15.dp),
         color = AppColors.lightGray.copy(alpha = .2f)
     ) {

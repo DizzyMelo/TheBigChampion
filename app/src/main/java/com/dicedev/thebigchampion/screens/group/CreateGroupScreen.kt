@@ -19,7 +19,6 @@ import com.dicedev.thebigchampion.components.FABIcon
 import com.dicedev.thebigchampion.components.MainButton
 import com.dicedev.thebigchampion.components.MainTextField
 import com.dicedev.thebigchampion.components.MainTopAppBar
-import com.dicedev.thebigchampion.navigation.AppScreens
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -55,7 +54,7 @@ fun CreateGroupScreen(
             MainButton(label = "Next", enabled = valid) {
                 groupViewModel.createGroup(
                     groupName.value,
-                    onSuccessAction = { navController.navigate(AppScreens.AddPlayersToGroupScreen.name) },
+                    navController = navController,
                     onFailureAction = {
                         coroutineScope.launch {
                             scaffoldState.snackbarHostState.showSnackbar("Something went wrong trying to create the group")

@@ -15,6 +15,10 @@ class FirebaseDao @Inject constructor(private val firestore: FirebaseFirestore) 
         return firestore.collection(collectionName).add(document)
     }
 
+    fun addValueToArray(collectionName: String, documentId: String, fieldName: String, value: String) {
+        firestore.collection(collectionName).document(documentId).update(fieldName, FieldValue.arrayUnion(value))
+    }
+
     fun getDocumentsFromCollection(collectionName: String): Flow<QuerySnapshot> {
         return firestore.collection(collectionName).snapshotFlow()
     }

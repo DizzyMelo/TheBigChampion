@@ -15,6 +15,10 @@ class FirebaseRepository @Inject constructor(private val dao: FirebaseDao) {
         return dao.addDocument(collectionName, document)
     }
 
+    fun insertValueToArray(collectionName: String, documentId: String, fieldName: String, value: String) {
+        dao.addValueToArray(collectionName, documentId, fieldName, value)
+    }
+
     fun getDocuments(collectionName: String): Flow<QuerySnapshot> {
         return dao.getDocumentsFromCollection(collectionName)
     }

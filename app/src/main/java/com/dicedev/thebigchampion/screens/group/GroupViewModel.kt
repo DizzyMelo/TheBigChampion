@@ -1,6 +1,5 @@
 package com.dicedev.thebigchampion.screens.group
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dicedev.thebigchampion.TheBigChampionApplication
@@ -13,7 +12,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GroupViewModel @Inject constructor(private val repository: FirebaseRepository) : ViewModel() {
-    fun createGroup(name: String, onSuccessAction: () -> Unit = {}) = viewModelScope.launch {
+    fun createGroup(
+        name: String,
+        onSuccessAction: () -> Unit = {},
+        onFailureAction: () -> Unit = {}
+    ) = viewModelScope.launch {
         try {
             repository.insertDocument(
                 collectionName = CollectionNames.GROUPS,
@@ -25,10 +28,10 @@ class GroupViewModel @Inject constructor(private val repository: FirebaseReposit
             ).addOnSuccessListener {
                 onSuccessAction.invoke()
             }.addOnFailureListener {
-                Log.d("FB Firestore", "createGroup: the task failed")
+                onFailureAction.invoke()
             }
         } catch (exception: Exception) {
-            Log.d("FB Firestore", "createGroup: Exception ${exception.message}")
+            onFailureAction.invoke()
         }
     }
 }

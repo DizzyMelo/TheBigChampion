@@ -33,8 +33,8 @@ class LoginViewModel @Inject constructor(private val repository: FirebaseReposit
                             fieldName,
                             task.user?.uid.toString()
                         ).addOnSuccessListener {
-                            Log.d("FB GET ID", "signInWithEmailAndPassword: ${it.documents.first().data}")
-                            TheBigChampionApplication.activeUserId = task.user?.uid
+                            TheBigChampionApplication.activeUserId = it.documents.first().data?.get("userId")
+                                ?.toString()
                             onSuccessCallback.invoke()
                         }.addOnFailureListener {
                             onFailureCallback.invoke()

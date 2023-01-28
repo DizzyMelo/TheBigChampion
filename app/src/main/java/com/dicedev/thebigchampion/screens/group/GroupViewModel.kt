@@ -19,6 +19,7 @@ class GroupViewModel @Inject constructor(private val repository: FirebaseReposit
                 collectionName = CollectionNames.GROUPS,
                 document = Group(
                     name = name,
+                    ownerId = TheBigChampionApplication.activeUserId.toString(),
                     players = listOf("users/${TheBigChampionApplication.activeUserId}")
                 ).toMap()
             ).addOnSuccessListener {

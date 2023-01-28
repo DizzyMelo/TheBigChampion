@@ -5,6 +5,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dicedev.thebigchampion.TheBigChampionApplication
 import com.dicedev.thebigchampion.reposiroty.FirebaseRepository
 import com.dicedev.thebigchampion.utils.CollectionNames
 import com.google.firebase.auth.FirebaseAuth
@@ -32,7 +33,8 @@ class LoginViewModel @Inject constructor(private val repository: FirebaseReposit
                             fieldName,
                             task.user?.uid.toString()
                         ).addOnSuccessListener {
-                            Log.d("FB GET ID", "signInWithEmailAndPassword: ${it.documents.first()}")
+                            Log.d("FB GET ID", "signInWithEmailAndPassword: ${it.documents.first().data}")
+                            TheBigChampionApplication.activeUserId = task.user?.uid
                             onSuccessCallback.invoke()
                         }.addOnFailureListener {
                             onFailureCallback.invoke()

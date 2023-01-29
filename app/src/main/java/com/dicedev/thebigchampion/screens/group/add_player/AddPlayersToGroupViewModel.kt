@@ -16,16 +16,31 @@ class AddPlayersToGroupViewModel @Inject constructor(private val repository: Fir
     private val playersAddedToGroup: SnapshotStateList<String> = mutableStateListOf()
     val playersAdded get() = playersAddedToGroup
 
-    fun addPlayerToGroup(groupId: String, email: String) {
+    fun addPlayerToGroup(groupId: String, email: String, onFailureCallback: () -> Unit) {
+        repository.getDocumentByFieldName(
+            collectionName = CollectionNames.USERS,
+            fieldName = "email",
+            value = email
+        )
+            .addOnSuccessListener { task ->
+                if (task.documents.isNotEmpty()) {
+                    insertReferenceToArray(
+                        groupId,
+                        task.documents.first().get("userId") as String
+                    )
+                } else {
+                    onFailureCallback.invoke()
+                }
+            }
+            .addOnFailureListener { onFailureCallback.invoke() }
+    }
 
-        repository.getDocumentByFieldName(CollectionNames.USERS, "email", email)
-            .addOnSuccessListener {  }.addOnFailureListener {  }
-
+    private fun insertReferenceToArray(groupId: String, playerId: String) {
         repository.insertReferenceValueToArray(
             collectionName = CollectionNames.GROUPS,
             documentId = groupId,
             fieldName = "players",
-            value = "${CollectionNames.USERS}/"
+            value = "${CollectionNames.USERS}/$playerId"
         ).addOnSuccessListener {
             Log.d("FB ADDED", "addPlayerToGroup: player added")
             playersAddedToGroup.add("Player")

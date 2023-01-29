@@ -48,7 +48,7 @@ fun GroupDetailsContent(navController: NavController, groupId: String?) {
             ) {
                 SectionTitle(text = "Players")
                 IconButton(onClick = { navController.navigate("${AppScreens.AddPlayersToGroupScreen.name}/$groupId") }) {
-                    Icon(imageVector = Icons.Default.Add, contentDescription = "Add Game Icon")
+                    Icon(imageVector = Icons.Default.Add, contentDescription = "Add Player Icon")
                 }
             }
 

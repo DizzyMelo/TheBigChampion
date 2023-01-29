@@ -15,11 +15,26 @@ class FirebaseDao @Inject constructor(private val firestore: FirebaseFirestore) 
         return firestore.collection(collectionName).add(document)
     }
 
+    fun addReferenceValueToArray(
+        collectionName: String,
+        documentId: String,
+        fieldName: String,
+        value: String
+    ): Task<Void> {
+        val document = firestore.document(value)
+        return firestore.collection(collectionName).document(documentId)
+            .update(fieldName, FieldValue.arrayUnion(document))
+    }
+
     fun getDocumentsFromCollection(collectionName: String): Flow<QuerySnapshot> {
         return firestore.collection(collectionName).snapshotFlow()
     }
 
-    fun getDocumentByField(collectionName: String, fieldName: String, value: String): Task<QuerySnapshot> {
+    fun getDocumentByField(
+        collectionName: String,
+        fieldName: String,
+        value: String
+    ): Task<QuerySnapshot> {
         return firestore.collection(collectionName).whereEqualTo(fieldName, value).get()
     }
 

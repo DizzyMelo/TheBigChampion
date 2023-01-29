@@ -1,10 +1,11 @@
 package com.dicedev.thebigchampion.screens.group
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.dicedev.thebigchampion.TheBigChampionApplication
 import com.dicedev.thebigchampion.models.Group
+import com.dicedev.thebigchampion.navigation.AppScreens
 import com.dicedev.thebigchampion.reposiroty.FirebaseRepository
 import com.dicedev.thebigchampion.utils.CollectionNames
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +14,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GroupViewModel @Inject constructor(private val repository: FirebaseRepository) : ViewModel() {
-    fun createGroup(name: String, onSuccessAction: () -> Unit = {}) = viewModelScope.launch {
+    fun createGroup(
+        name: String,
+        navController: NavController,
+        onFailureAction: () -> Unit = {}
+    ) = viewModelScope.launch {
         try {
             repository.insertDocument(
                 collectionName = CollectionNames.GROUPS,
@@ -23,12 +28,12 @@ class GroupViewModel @Inject constructor(private val repository: FirebaseReposit
                     players = listOf("users/${TheBigChampionApplication.activeUserId}")
                 ).toMap()
             ).addOnSuccessListener {
-                onSuccessAction.invoke()
+                navController.navigate("${AppScreens.AddPlayersToGroupScreen.name}/${it.id}")
             }.addOnFailureListener {
-                Log.d("FB Firestore", "createGroup: the task failed")
+                onFailureAction.invoke()
             }
         } catch (exception: Exception) {
-            Log.d("FB Firestore", "createGroup: Exception ${exception.message}")
+            onFailureAction.invoke()
         }
     }
 }

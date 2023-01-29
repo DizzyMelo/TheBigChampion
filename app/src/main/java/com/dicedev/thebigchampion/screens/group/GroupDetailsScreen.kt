@@ -13,13 +13,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import com.dicedev.thebigchampion.components.*
+import com.dicedev.thebigchampion.navigation.AppScreens
 
 @Preview
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun GroupDetailsScreen(
     navController: NavController = NavController(LocalContext.current),
-    groupId: String? = "no-id"
+    groupId: String? = null
 ) {
     Scaffold(topBar = {
         MainTopAppBar(
@@ -29,12 +30,12 @@ fun GroupDetailsScreen(
             showLogOut = false
         )
     }) {
-        GroupDetailsContent()
+        GroupDetailsContent(navController, groupId)
     }
 }
 
 @Composable
-fun GroupDetailsContent() {
+fun GroupDetailsContent(navController: NavController, groupId: String?) {
     ScreenFrame {
         Column {
             HorizontalDisplayCard(listOf(
@@ -46,8 +47,8 @@ fun GroupDetailsContent() {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 SectionTitle(text = "Players")
-                IconButton(onClick = { /*TODO*/ }) {
-                    Icon(imageVector = Icons.Default.Add, contentDescription = "Add Game Icon")
+                IconButton(onClick = { navController.navigate("${AppScreens.AddPlayersToGroupScreen.name}/$groupId") }) {
+                    Icon(imageVector = Icons.Default.Add, contentDescription = "Add Player Icon")
                 }
             }
 

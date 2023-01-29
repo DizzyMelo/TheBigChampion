@@ -6,5 +6,6 @@ enum class AppScreens {
     SignupScreen,
     HomeScreen,
     CreateGroupScreen,
-    StatsScreen
+    AddPlayersToGroupScreen,
+    GroupDetailsScreen
 }

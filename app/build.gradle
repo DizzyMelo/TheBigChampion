@@ -108,6 +108,9 @@ dependencies {
     // Needed for createAndroidComposeRule, but not createComposeRule:
     debugImplementation("androidx.compose.ui:ui-test-manifest:$compose_ui_version")
 
+    // LiveData run time
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_ui_version"
+
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
     implementation 'androidx.activity:activity-compose:1.6.1'

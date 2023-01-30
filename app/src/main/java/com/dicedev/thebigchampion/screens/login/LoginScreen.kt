@@ -58,7 +58,7 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = h
                 PasswordTextField(passwordState = passwordState)
                 MainButton(
                     label = "Login",
-                    isLoading = loginViewModel.signInLoading.value,
+                    isLoading = loginViewModel.isLoading.value,
                     enabled = valid
                 ) {
                     loginViewModel.signInWithEmailAndPassword(

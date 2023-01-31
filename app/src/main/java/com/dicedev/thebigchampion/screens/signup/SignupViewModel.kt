@@ -1,6 +1,7 @@
 package com.dicedev.thebigchampion.screens.signup
 
-import android.util.Log
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dicedev.thebigchampion.TheBigChampionApplication
@@ -8,6 +9,7 @@ import com.dicedev.thebigchampion.data.FirebaseDao
 import com.dicedev.thebigchampion.models.User
 import com.dicedev.thebigchampion.utils.CollectionNames
 import com.dicedev.thebigchampion.utils.Utils
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,28 +20,46 @@ class SignupViewModel @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val firebaseDao: FirebaseDao
 ) : ViewModel() {
-    fun signupWithEmailAndPassword(email: String, password: String, onSuccessCallback: () -> Unit) =
+    val isLoading: MutableState<Boolean> = mutableStateOf(false)
+
+    fun signupWithEmailAndPassword(
+        email: String,
+        password: String,
+        onSuccessCallback: () -> Unit,
+        onFailureCallback: () -> Unit
+    ) =
         viewModelScope.launch {
+            isLoading.value = true
             firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnSuccessListener { task ->
-                    val user = User(
-                        userId = task.user?.uid,
-                        name = Utils.getUserNameFromEmail(email),
-                        email = email,
-                        photo = "no-photo"
-                    ).toMap()
-                    firebaseDao.addDocument(
-                        collectionName = CollectionNames.USERS,
-                        document = user
-                    ).addOnSuccessListener {
-                        TheBigChampionApplication.activeUserId = it.id
-                        onSuccessCallback.invoke()
-                    }
+                    createFirestoreUser(task, email, onSuccessCallback, onFailureCallback)
                 }.addOnFailureListener {
-                    Log.d(
-                        "SIGN UP",
-                        "signupWithEmailAndPassword: something went wrong trying to create user ${it.message}"
-                    )
+                    onFailureCallback.invoke()
+                }.addOnCompleteListener {
+                    isLoading.value = false
                 }
         }
+
+    private fun createFirestoreUser(
+        task: AuthResult,
+        email: String,
+        onSuccessCallback: () -> Unit,
+        onFailureCallback: () -> Unit
+    ) {
+        val user = User(
+            userId = task.user?.uid,
+            name = Utils.getUserNameFromEmail(email),
+            email = email,
+            photo = "no-photo"
+        ).toMap()
+        firebaseDao.addDocument(
+            collectionName = CollectionNames.USERS,
+            document = user
+        ).addOnSuccessListener {
+            TheBigChampionApplication.activeUserId = it.id
+            onSuccessCallback.invoke()
+        }.addOnFailureListener {
+            onFailureCallback.invoke()
+        }
+    }
 }

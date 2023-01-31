@@ -2,12 +2,10 @@ package com.dicedev.thebigchampion.screens.home
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.dicedev.thebigchampion.components.*
@@ -64,10 +62,7 @@ fun GroupsContent(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center
                     ) {
-                        CircularProgressIndicator(
-                            modifier = Modifier.size(28.dp),
-                            strokeWidth = 3.dp
-                        )
+                        LoadingProgressIndicator()
                     }
                 } else if (groups == null || groups.isEmpty()) {
                     MainButton(

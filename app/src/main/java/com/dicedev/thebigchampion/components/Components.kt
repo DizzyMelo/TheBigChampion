@@ -101,3 +101,12 @@ fun TitleValueBlock(title: String, value: String) {
         Text(text = value)
     }
 }
+
+@Composable
+fun LoadingProgressIndicator(size: Dp = 28.dp, strokeWidth: Dp = 3.dp) {
+    CircularProgressIndicator(
+        modifier = Modifier.size(size),
+        strokeWidth = strokeWidth,
+        color = AppColors.solidGreen
+    )
+}

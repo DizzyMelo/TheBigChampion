@@ -23,7 +23,7 @@ internal class UtilsTest {
         }
 
         val result = Utils.getNavigationRoute(mockFirebaseAuth)
-        assert(result != LOGIN_SCREEN_NAME)
+        assert(result == LOGIN_SCREEN_NAME)
     }
 
     @Test
